@@ -12,7 +12,6 @@ export default function NewTicketPage() {
   return (
     <Container maxWidth="sm"
     sx={{
-      backgroundColor: theme.palette.background.default,
       color: theme.palette.text.primary,
       padding: theme.spacing(3), 
       borderRadius: theme.shape.borderRadius,
