@@ -30,6 +30,7 @@ export default function NewTicketPage() {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm();
   // Estado controlado para la unidad
   const [selectedUnit, setSelectedUnit] = useState(""); // Valor inicial vacío
@@ -54,8 +55,11 @@ export default function NewTicketPage() {
       if (response.ok) {
         Swal.fire({
           icon: 'success',
-          title: 'Ticket creado',
-          text: 'El ticket se ha creado correctamente.',
+          title: 'El ticket se ha creado correctamente',
+          text: 'Gracias por usar nuestro servicio, te atenderemos tan pronto sea posible.',
+        }).then(()=>{
+          reset();
+          setSelectedUnit('');
         });
       } else {
         Swal.fire({
@@ -125,7 +129,16 @@ export default function NewTicketPage() {
                 typeof errors.creator?.message === "string"
                   ? errors.creator.message
                   : ""
-              } // Verifica si el mensaje es una cadena
+              }
+            />
+          </Grid>
+          {/* Numero de telefono Persona solicitante */}
+          <Grid size={12}>
+            <TextField
+              fullWidth
+              label="Número de telefono del solcitante"
+              variant="outlined"
+              {...register("creatorPhoneNumber")}
             />
           </Grid>
 
