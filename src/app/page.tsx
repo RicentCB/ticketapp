@@ -4,7 +4,7 @@ import { useState } from "react";
 import Grid from "@mui/material/Grid2";
 import { useTheme } from "@mui/material/styles";
 import { useForm } from "react-hook-form";
-import { Box, Button, Container, MenuItem, TextField, Typography, Select, FormControl, InputLabel, FormHelperText, } from "@mui/material";
+import { Box, Button, Container, CircularProgress, MenuItem, TextField, Typography, Select, FormControl, InputLabel, FormHelperText, } from "@mui/material";
 
 // Definir las opciones para el Select
 const units = ['Unidad 1', 'Unidad 2', 'Unidad 3'];
@@ -20,6 +20,8 @@ export default function NewTicketPage() {
   } = useForm();
   // Estado controlado para la unidad
   const [selectedUnit, setSelectedUnit] = useState(''); // Valor inicial vacío
+  // Estado para el botón de "cargando"
+  const [loading, setLoading] = useState(false);
 
   // Función para manejar el cambio en el select
   const handleUnitChange = (event: React.ChangeEvent<{ value: unknown }>) => {
@@ -28,6 +30,7 @@ export default function NewTicketPage() {
   
   // Función que se ejecuta al enviar el formulario
   const onSubmit = async (data: any) => {
+    setLoading(true);
     try {
       const response = await fetch('/api/tickets', {
         method: 'POST',
@@ -43,6 +46,8 @@ export default function NewTicketPage() {
     } catch (error) {
       console.error('Error al enviar el ticket:', error);
       alert('Hubo un error al enviar los datos');
+    } finally{
+      setLoading(false);
     }
   };
 
@@ -134,8 +139,10 @@ export default function NewTicketPage() {
               variant="contained"
               color="primary"
               fullWidth
+              disabled={loading} // Desactivar el botón mientras está "cargando"
+              startIcon={loading ? <CircularProgress size={20} /> : null} // Mostrar el spinner mientras carga
             >
-              Crear Ticket
+              {loading ? 'Enviando...' : 'Crear Ticket'} {/* Cambia el texto del botón */}
             </Button>
           </Grid>
         </Grid>
