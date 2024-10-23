@@ -71,9 +71,9 @@ export default function NewTicketPage() {
               fullWidth
               label="Título*"
               variant="outlined"
-              {...register('description', { required: 'El título es requerido' })}
-              error={!!errors.description} // Muestra error si hay
-              helperText={typeof errors.description?.message === 'string' ? errors.description.message : ''}
+              {...register('title', { required: 'El título es requerido' })}
+              error={!!errors.title} // Muestra error si hay
+              helperText={typeof errors.title?.message === 'string' ? errors.title.message : ''}
             />
           </Grid>
 
@@ -117,10 +117,13 @@ export default function NewTicketPage() {
           <Grid size={12}>
             <TextField
               fullWidth
-              label="Descripción detallada, comentarios, etc."
+              label="Descripción detallada"
               variant="outlined"
               multiline
               rows={4}
+              {...register('description')}
+              error={!!errors.description}
+              helperText={typeof errors.description?.message === 'string' ? errors.description.message : ''} // Verifica si el mensaje es una cadena
             />
           </Grid>
 
