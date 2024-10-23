@@ -17,6 +17,7 @@ import {
   InputLabel,
   FormHelperText,
 } from "@mui/material";
+import Swal from 'sweetalert2'; 
 
 // Definir las opciones para el Select
 const units = ["Unidad 1", "Unidad 2", "Unidad 3"];
@@ -51,13 +52,25 @@ export default function NewTicketPage() {
       });
 
       if (response.ok) {
-        alert("Ticket creado exitosamente");
+        Swal.fire({
+          icon: 'success',
+          title: 'Ticket creado',
+          text: 'El ticket se ha creado correctamente.',
+        });
       } else {
-        alert("Error al crear el ticket");
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'Hubo un problema al crear el ticket.',
+        });
       }
     } catch (error) {
       console.error("Error al enviar el ticket:", error);
-      alert("Hubo un error al enviar los datos");
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Hubo un error de conexión.',
+      });
     } finally {
       setLoading(false);
     }
@@ -72,8 +85,8 @@ export default function NewTicketPage() {
         borderRadius: theme.shape.borderRadius,
       }}
     >
-      <Typography variant="h4" component="h1" gutterBottom>
-        Ticket de asistencia Ingeniera
+      <Typography variant="h5" component="h1" gutterBottom>
+        Creacion de ticket de asistencia - Ingeniería
       </Typography>
       {/* Usamos un formulario en un Grid para que sea responsivo */}
       <Box
