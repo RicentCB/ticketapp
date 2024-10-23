@@ -4,6 +4,7 @@ import mongoose, { Schema, Document, Model } from 'mongoose';
 export interface ITicket extends Document {
   title: string;
   creator: string;
+  creatorPhoneNumber: string;
   unit: string;
   description: string;
 }
@@ -12,6 +13,7 @@ export interface ITicket extends Document {
 const TicketSchema: Schema<ITicket> = new Schema({
   title: { type: String, required: true },
   creator: { type: String, required: true },
+  creatorPhoneNumber: { type: String, required: true },
   unit: { type: String, required: true },
   description: { type: String, required: false },
 });
